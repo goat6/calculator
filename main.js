@@ -2,57 +2,90 @@ function add(num1,num2) { return num1 + num2;}
 function subtract(num1, num2) { return num1 - num2; }
 function multiply(num1, num2) { return num1 * num2; }
 function divide(num1, num2) { return num1 / num2; }
-function operate(num1, num2, operator) {
-    if (operator === "*") {
-        multiply(num1, num2);
-    } else if (operator === "+") { 
-        add(num1, num2);
-    } else if (operator === "-") { 
-        subtract(num1, num2);
-    }  else if (operator === "/") { 
-        divide(num1, num2);
-    }
-}
 function loadDisplay(value) { 
     display.textContent += value;
 }
 function clearDisplay() {
     display.textContent = null;
-    num1 = 0;
-    num2 = 0; 
-    operator = null
+    display2.textContent = null;
+}
+function clearValues() { 
+    num1 = null;
+    num2 = null; 
+    operator = null;
+    result = null;
+}
+function loadNum1() { 
+    num1 = Number(display.textContent);
+}
+function loadNum2() { 
+    num2 = Number(display.textContent);
+}
+function calculateResult() { 
+    if (operator === "x") {
+        result = multiply(num1, num2)
+    } else if (operator === "+") { 
+        result = add(num1,num2)
+    } else if (operator === "-") { 
+        result = subtract(num1,num2)
+    } else if (operator === "÷") { 
+        result = divide(num1,num2)
+    }
+    display.textContent = result;
+    return result
+}
+function loadNumbers() { 
+    if (num1 && !num2) {
+        loadNum2();
+    } else if (!num1 && !num2) {
+        loadNum1();
+        clearDisplay()
+    }
+}
+function updateCounts() { 
+    if (num1) {  
+        display2.textContent = num1
+    }
 }
 function takeInput() {
-    let input = this.textContent
-    if (input === "AC") { 
+    
+    let input = this.textContent;
+    currentContent = display.textContent.split('');
+    if (input === "AC") {
+        clearDisplay();
+        clearValues();
+        return;
+    } else if (input === "=") {
+        loadNumbers()
         clearDisplay()
-        return
+        calculateResult()
+        clearValues()
+    } else if (input === ".") {
+        if (currentContent.includes(".")) { return };
+    } else if (input === "x" || input === "÷" || input === "+" || input === "-") {
+        loadNumbers()
+        if (num1 && num2) {
+            num1 = calculateResult();
+            num2 = null
+            clearDisplay()
+            console.log(num1)
+            console.log(num2)
+        }
+        operator = input
     }
-    loadDisplay(input)
+    if (Number(input)|| input === "."||input==="0")
+        loadDisplay(input)
+    updateCounts()
 }
-let num1 = 0;
-let num2 = 0;
+
+let num1 = null;
+let num2 = null;
 let operator = null;
+let result = null;
 const buttons = document.querySelectorAll("button")
 const display = document.querySelector(".display");
-// const button1 = document.querySelector(".1");
-// const button2 = document.querySelector(".2");
-// const button3 = document.querySelector(".3");
-// const button4 = document.querySelector(".4");
-// const button5 = document.querySelector(".5");
-// const button6 = document.querySelector(".6");
-// const button7 = document.querySelector(".7");
-// const button8 = document.querySelector(".8");
-// const button9 = document.querySelector(".9");
-// const button0 = document.querySelector(".0");
-// const buttonDecimal = document.querySelector(".decimal");
-// const buttonMinus = document.querySelector(".minus");
-// const buttonAdd = document.querySelector(".plus");
-// const buttonTimes = document.querySelector(".times");
-// const buttonDivide = document.querySelector(".divide");
-// const buttonClear = document.querySelector(".AC");
-// const buttonChangeSign = document.querySelector(".change-sign");
-// const buttonPercentage = document.querySelector(".percentage");
-// const buttonEquals = document.querySelector(".equals");
-
+const displayNum1 = document.querySelector(".num1")
+const displayNum2 = document.querySelector(".num2")
+const displayOperator = document.querySelector(".operator")
+const display2 = document.querySelector(".display2")
 buttons.forEach(button => button.addEventListener("click",takeInput))

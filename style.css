@@ -17,16 +17,22 @@ button {
     background: black;
     color:aliceblue
 }
-.display {
+.display-wrapper {
     height: 10vh;
     grid-column: 1/5;
     background: grey;
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
     align-items: center;
     font-size: 3vw;
     padding: 2vw;
 }
+.display p {
+    font-size: 3vw;
+}
 .zero {
     grid-column: 1/3;
+}
+.AC {
+    grid-column: 1/4;
 }
