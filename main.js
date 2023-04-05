@@ -1,7 +1,12 @@
 function add(num1,num2) { return num1 + num2;}
 function subtract(num1, num2) { return num1 - num2; }
 function multiply(num1, num2) { return num1 * num2; }
-function divide(num1, num2) { return num1 / num2; }
+function divide(num1, num2) {
+    if (num2 === 0) { 
+        return "Math Error"
+    }
+    return num1 / num2;
+}
 function loadDisplay(value) { 
     display.textContent += value;
 }
@@ -31,6 +36,7 @@ function calculateResult() {
     } else if (operator === "÷") { 
         result = divide(num1,num2)
     }
+    result = +result.toFixed(10);
     display.textContent = result;
     return result
 }
