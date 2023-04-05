@@ -1,0 +1,32 @@
+* {
+    outline: 0;
+    box-sizing: border-box;
+}
+.calculator-wrapper {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    width: 50svw;
+    height: 60svh;
+    gap: 0.1vw;
+    background: teal;
+}
+button {
+    font-size: 3vw;
+    border: none;
+    cursor: pointer;
+    background: black;
+    color:aliceblue
+}
+.display {
+    height: 10vh;
+    grid-column: 1/5;
+    background: grey;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    font-size: 3vw;
+    padding: 2vw;
+}
+.zero {
+    grid-column: 1/3;
+}
